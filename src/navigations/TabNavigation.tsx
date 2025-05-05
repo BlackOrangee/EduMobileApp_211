@@ -16,7 +16,7 @@ const BottomTab: React.FC = () => {
       screenOptions={{
         tabBarActiveTintColor: '#2196F3',
         tabBarInactiveTintColor: '#090808',
-        // headerShown: false,
+        headerShown: false,
       }}
       initialRouteName="Home">
       <Tab.Screen name="Home" component={HomeScreen} />

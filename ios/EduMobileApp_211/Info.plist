@@ -33,7 +33,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>For plan some way!</string>
 	<key>NSCameraUsageDescription</key>
     <string>Need access to create Photo</string>
     <key>NSPhotoLibraryUsageDescription</key>
