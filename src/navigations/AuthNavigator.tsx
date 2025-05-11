@@ -16,12 +16,12 @@ export default function AuthNavigator() {
   return (
     //     @ts-ignore
     <Stack.Navigator initialRouteName="LoginScreen">
-      {/* tabs */}
+        {/* tabs */}
 
-      {/* static screens */}
-      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{}} />
+        {/* static screens */}
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{}} />
 
-      {/* dynamic screens */}
+        {/* dynamic screens */}
     </Stack.Navigator>
-  );
+);
 }
