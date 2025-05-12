@@ -11,7 +11,7 @@ const LoginScreen = () => {
       <TouchableOpacity
         onPress={async () => {
           await auth.setToken('accessToken');
-          dispatch(setToken('test'));
+          dispatch(setToken('accessToken'));
         }}>
         <Text>Login</Text>
       </TouchableOpacity>
