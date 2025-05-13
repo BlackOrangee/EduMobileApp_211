@@ -27,10 +27,12 @@ class Auth {
   public async setToken(token: string): Promise<void> {
     await AsyncStorage.setItem('token', token);
     this.isAuthenticated = true;
+    console.log('Saving token in Async Storage', token);
   }
 
   public async logOut(): Promise<void> {
     await AsyncStorage.removeItem('token');
+    this.isAuthenticated = false;
   }
 }
 

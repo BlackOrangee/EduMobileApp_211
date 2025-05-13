@@ -2,7 +2,8 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 //screens
-import LoginScreen from '../screens/auth/login/LoginScreen.tsx';
+import EditProfileScreen from '../screens/profile/EditProfileScreen.tsx';
+import SettingsScreen from '../screens/settings/SettingsScreen';
 
 // tabs
 import BottomTab from './TabNavigation.tsx';
@@ -10,6 +11,8 @@ import BottomTab from './TabNavigation.tsx';
 export type RootStackParamList = {
   LoginScreen: undefined;
   BottomTab: undefined;
+  EditProfile: undefined;
+  SettingsScreen: undefined;
   // Products: undefined;
 };
 
@@ -29,7 +32,16 @@ export default function StackNavigator() {
       />
 
       {/* static screens */}
-      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{}} />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        options={{}}
+      />
+      <Stack.Screen
+        name="SettingsScreen"
+        component={SettingsScreen}
+        options={{}}
+      />
 
       {/* dynamic screens */}
     </Stack.Navigator>
