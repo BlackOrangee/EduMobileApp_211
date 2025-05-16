@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import CourseCard from '../../components/CourseCard';
+import CartButton from "../../components/CartButton.tsx";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../store/slices/cartSlice.ts";
 
 const StoreScreen = () => {
     const [selectedFilter, setSelectedFilter] = useState('all');
@@ -20,6 +23,7 @@ const StoreScreen = () => {
     const data = {
         Modul: [
             {
+                id: 1,
                 title: 'Business Legalization',
                 price: 29,
                 oldPrice: 49,
@@ -32,6 +36,7 @@ const StoreScreen = () => {
                 image: 'https://picsum.photos/200/300',
             },
             {
+                id: 2,
                 title: 'Business Legalization',
                 price: 29,
                 oldPrice: 49,
@@ -44,6 +49,7 @@ const StoreScreen = () => {
                 image: 'https://picsum.photos/200/300',
             },
             {
+                id: 3,
                 title: 'Business Legalization',
                 price: 29,
                 oldPrice: 49,
@@ -58,6 +64,7 @@ const StoreScreen = () => {
         ],
         Course: [
             {
+                id: 4,
                 title: 'Investment Instruments',
                 price: 29,
                 oldPrice: 49,
@@ -72,6 +79,7 @@ const StoreScreen = () => {
         ],
         Bootcamp: [
             {
+                id: 5,
                 title: 'Business Legalization',
                 price: 29,
                 oldPrice: 49,
@@ -96,7 +104,7 @@ const StoreScreen = () => {
                 horizontal
                 data={items}
                 renderItem={({ item }) =>
-                    <TouchableOpacity key={item} onPress={() => console.log(item)}>
+                    <TouchableOpacity key={item} onPress={() => handleAddToCart(item)}>
                         <CourseCard data={item} />
                     </TouchableOpacity>
             }
@@ -106,12 +114,19 @@ const StoreScreen = () => {
         </View>
     );
 
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (item : any) => {
+        dispatch(addToCart(item));
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.topBar}>
                 <TextInput placeholder="Search something..." style={styles.searchInput} />
                 <Image source={require('../../assets/favorite_icon.png')} style={styles.icon} />
-                <Image source={require('../../assets/cart_icon.png')} style={styles.icon} />
+                <CartButton />
+                {/*<Image source={require('../../assets/cart_icon.png')} style={styles.icon} />*/}
             </View>
 
             <View style={styles.filters}>
