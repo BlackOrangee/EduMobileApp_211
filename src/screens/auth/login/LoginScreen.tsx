@@ -29,7 +29,7 @@ const LoginScreen = () => {
             <TouchableOpacity style={styles.loginButton}
                               onPress={async () => {
                                   await auth.setToken('accessToken');
-                                  dispatch(setToken('test'));
+                                  dispatch(setToken('accessToken'));
                               }}>
                 <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
