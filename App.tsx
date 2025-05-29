@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Provider} from 'react-redux';
 import store from './src/store';
@@ -16,11 +15,5 @@ function App(): React.JSX.Element {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  mainText: {
-    color: 'red',
-  },
-});
 
 export default App;

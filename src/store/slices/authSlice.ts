@@ -6,7 +6,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   token: null,
 };
 
@@ -15,15 +15,14 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<AuthState>) => {
-      console.log('SET_TOKEN', action.payload);
       state.token = action.payload;
       state.isAuthenticated = true;
+      console.log("Save token in Redux", state.token);
 
-      console.log(state.token);
-      console.log(state.isAuthenticated);
     },
     logOut: state => {
       state.isAuthenticated = false;
+      state.token = null;
     },
   },
 });
