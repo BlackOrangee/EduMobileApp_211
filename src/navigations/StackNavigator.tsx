@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 //screens
 import EditProfileScreen from '../screens/profile/EditProfileScreen.tsx';
 import SettingsScreen from '../screens/settings/SettingsScreen';
+import SingleForumScreen from '../screens/forum/SingleForumScreen.tsx';
 
 // tabs
 import BottomTab from './TabNavigation.tsx';
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   EditProfile: undefined;
   SettingsScreen: undefined;
   CartScreen: undefined;
+  SingleForumScreen: undefined;
   // Products: undefined;
 };
 
@@ -51,6 +53,11 @@ export default function StackNavigator() {
             options={{ title: 'Cart' }}
         />
       {/* dynamic screens */}
+      <Stack.Screen
+        name="SingleForumScreen"
+        component={SingleForumScreen}
+        options={{}}
+      />
     </Stack.Navigator>
   );
 }
