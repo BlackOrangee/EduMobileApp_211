@@ -1,6 +1,7 @@
 import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import Slider from "../../components/Slider.tsx";
-import HomeNewsCard from "../../components/HomeNewsCard.tsx";
+import Slider from '../../components/Slider.tsx';
+import HomeNewsCard from '../../components/HomeNewsCard.tsx';
+import {useState} from 'react';
 
 const userInfo = {
     username: 'John Snow',
@@ -9,7 +10,7 @@ const userInfo = {
 };
 
 const HomeScreen = () => {
-    const news = [
+    const [news, setNews] = useState<any[]>([
         {
             id: 1,
             image: require('../../assets/homeNewsCadImage.png'),
@@ -18,6 +19,7 @@ const HomeScreen = () => {
             likes: 12,
             comments: 5,
             shared: 3,
+            isLiked: true,
         },
         {
             id: 2,
@@ -27,6 +29,7 @@ const HomeScreen = () => {
             likes: 12,
             comments: 5,
             shared: 3,
+            isLiked: false,
         },
         {
             id: 3,
@@ -36,6 +39,7 @@ const HomeScreen = () => {
             likes: 12,
             comments: 5,
             shared: 3,
+            isLiked: true,
         },
         {
             id: 4,
@@ -45,6 +49,7 @@ const HomeScreen = () => {
             likes: 12,
             comments: 5,
             shared: 3,
+            isLiked: false,
         },
         {
             id: 5,
@@ -54,6 +59,7 @@ const HomeScreen = () => {
             likes: 12,
             comments: 5,
             shared: 3,
+            isLiked: false,
         },
         {
             id: 6,
@@ -63,8 +69,19 @@ const HomeScreen = () => {
             likes: 12,
             comments: 5,
             shared: 3,
+            isLiked: false,
         },
-    ];
+    ]);
+
+    const likeOrUnlikeNews = (id: number) => {
+        const updatedNews = news.map(item =>
+            item.id === id ? { ...item,
+                isLiked: !item.isLiked,
+                likes: item.isLiked ? item.likes - 1 : item.likes + 1 } : item
+        );
+        setNews(updatedNews);
+    };
+
   return (
     <ScrollView style={{backgroundColor: 'rgba(255,255,255,0.93)'}}>
         <View style={styles.headerBackground}/>
@@ -72,7 +89,7 @@ const HomeScreen = () => {
             <View style={styles.header}>
                 <View style={styles.headerSearchArea} >
                     <Image
-                        style={[{width: 11.5, height: 12.05}, styles.headerSearchIcon]}
+                        style={styles.headerSearchIcon}
                         source={require('../../assets/homeSearchIcon.png')}
                     />
                     <TextInput
@@ -80,14 +97,18 @@ const HomeScreen = () => {
                         placeholder="Search something..."
                         placeholderTextColor="#FFFFFF"
                     />
-                    <Image
-                        style={{width: 16.67, height: 20.83}}
-                        source={require('../../assets/homeCartIcon.png')}
-                    />
-                    <Image
-                        style={{width: 18.75, height: 20.84}}
-                        source={require('../../assets/homeNotificationIcon.png')}
-                    />
+                    <TouchableOpacity>
+                        <Image
+                            style={{width: 16.67, height: 20.83}}
+                            source={require('../../assets/homeCartIcon.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Image
+                            style={{width: 18.75, height: 20.84}}
+                            source={require('../../assets/homeNotificationIcon.png')}
+                        />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.headerUserInfo}>
                     <Text style={styles.headerUserName}>
@@ -233,7 +254,7 @@ const HomeScreen = () => {
                     </TouchableOpacity>
                 </View>
                 {news.map((item) => (
-                    <HomeNewsCard key={item.id} data={item}/>
+                    <HomeNewsCard key={item.id} data={item} likeOrUnlikeNews={likeOrUnlikeNews}/>
                 ))}
             </View>
         </View>
@@ -276,6 +297,8 @@ const styles = StyleSheet.create({
     headerSearchIcon: {
         position: 'absolute',
         left: 12,
+        width: 11.5,
+        height: 12.05,
     },
     // headerUserInfo
     headerUserInfo: {

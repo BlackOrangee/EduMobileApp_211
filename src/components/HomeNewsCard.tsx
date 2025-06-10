@@ -1,62 +1,82 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, Image, StyleSheet, Text, TouchableOpacity, View, Share} from 'react-native';
 import { formatDistance } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 
-const HomeNewsCard = ({data} : any) => {
+const HomeNewsCard = ({data, likeOrUnlikeNews} : any) => {
+
+    const shareNews = async () => {
+        try {
+            const result = await Share.share({
+                message: 'Share message',
+                title: 'Share title',
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    console.log('activityType: ', result.activityType);
+                } else {
+                    console.log('result: ', result);
+                }
+            } else if (result.action === Share.dismissedAction) {
+                console.log('dismissed');
+            }
+        } catch (error) {
+            console.error('error:', error);
+        }
+    };
+
     return (
-        <View style={styles.card}>
-            <TouchableOpacity>
-                <Image
-                    style={styles.cardImage}
-                    source={data.image}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cardInfo}>
-                <Text style={styles.cardTextSecondary}>
-                    {formatDistance(new Date(data.date), new Date(), {
-                        addSuffix: true,
-                        locale: enUS,
-                    })}
-                </Text>
-                <Text style={styles.cardTitle}>
-                    {data.title}
-                </Text>
-                <View style={styles.cardStats}>
-                    <View style={styles.cardStatsItem}>
-                        <Image
-                            style={styles.cardStatsItemIcon}
-                            source={require('../assets/homeNewsCardLikeIcon.png')}
-                        />
-                        <Text style={styles.cardTextSecondary}>
-                            {data.likes}
-                        </Text>
-                    </View>
-                    <View style={styles.cardStatsItem}>
-                        <Image
-                            style={styles.cardStatsItemIcon}
-                            source={require('../assets/homeNewsCardCommentsIcon.png')}
-                        />
-                        <Text style={styles.cardTextSecondary}>
-                            {data.comments}
-                        </Text>
-                    </View>
-                    <View style={styles.cardStatsItem}>
-                        <Image
-                            style={styles.cardStatsItemIcon}
-                            source={require('../assets/homeNewsCardShareIcon.png')}
-                        />
-                        <Text style={styles.cardTextSecondary}>
-                            {data.shared}
-                        </Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cardMenuBtn}>
-                <Image
-                    source={require('../assets/homeNewsCadOptionIcon.png')}
-                />
-            </TouchableOpacity>
+      <TouchableOpacity style={styles.card}>
+        <View>
+          <Image style={styles.cardImage} source={data.image} />
         </View>
+        <View style={styles.cardInfo}>
+          <Text style={styles.cardTextSecondary}>
+            {formatDistance(new Date(data.date), new Date(), {
+              addSuffix: true,
+              locale: enUS,
+            })}
+          </Text>
+          <Text style={styles.cardTitle}>{data.title}</Text>
+          <View style={styles.cardStats}>
+            <TouchableOpacity
+              style={styles.cardStatsItem}
+              onPress={() => likeOrUnlikeNews(data.id)}>
+              <Image
+                style={styles.cardStatsItemIcon}
+                source={
+                  data.isLiked
+                    ? require('../assets/homeNewsCardLikeActiveIcon.png')
+                    : require('../assets/homeNewsCardLikeIcon.png')
+                }
+              />
+              <Text style={styles.cardTextSecondary}>{data.likes}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cardStatsItem}
+              onPress={() => Alert.alert('Pressed Comments', 'Pressed Comments')}>
+              <Image
+                style={styles.cardStatsItemIcon}
+                source={require('../assets/homeNewsCardCommentsIcon.png')}
+              />
+              <Text style={styles.cardTextSecondary}>{data.comments}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.cardStatsItem}
+                onPress={() => shareNews()}
+            >
+              <Image
+                style={styles.cardStatsItemIcon}
+                source={require('../assets/homeNewsCardShareIcon.png')}
+              />
+              <Text style={styles.cardTextSecondary}>{data.shared}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <TouchableOpacity style={styles.cardMenuBtn}>
+          <Image source={require('../assets/homeNewsCadOptionIcon.png')} />
+        </TouchableOpacity>
+      </TouchableOpacity>
     );
 };
 
